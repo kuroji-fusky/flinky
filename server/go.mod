@@ -1,4 +1,4 @@
-module github.com/kuroji-fusky/finkydb/server
+module github.com/kuroji-fusky/flinky/server
 
 go 1.22.3
 
