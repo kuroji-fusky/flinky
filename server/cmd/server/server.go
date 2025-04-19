@@ -1,10 +1,13 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"os"
+	"os/signal"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/joho/godotenv"
@@ -14,7 +17,7 @@ import (
 
 func customHeader(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Response().Header().Set("X-Made-With", "Your mom lol")
+		c.Response().Header().Set("X-Made-With", "Hugs and kisses")
 		return next(c)
 	}
 }
@@ -23,17 +26,19 @@ func main() {
 	// Load env
 	cwd, cwdErr := os.Getwd()
 	if cwdErr != nil {
-		log.Fatal("Error getting current working directory:", cwdErr)
+		log.Fatalf("Error getting current working directory: %v", cwdErr)
 	}
 
-	envPath := filepath.Join(cwd, "..", ".env")
-	envErr := godotenv.Load(envPath)
+	envErr := godotenv.Load(filepath.Join(cwd, "..", ".env"))
 	if envErr != nil {
-		log.Fatal(envErr)
+		log.Fatalf("Error getting .env: %v", envErr)
 	}
 
 	// customAPIKey := os.Getenv("FINKY_SECRET_API_TOKEN")
-	// allowedCORSUrl := os.Getenv("FINKY_SERVER_CORS_ALLOWED_DOMAINS")
+	allowedURLOrigins := os.Getenv("FINKY_SERVER_CORS_ALLOWED_DOMAINS")
+	if allowedURLOrigins == "" {
+		allowedURLOrigins = "http://localhost:3000"
+	}
 
 	// Main server
 	e := echo.New()
@@ -41,8 +46,9 @@ func main() {
 	e.Use(
 		// CORS stuff
 		middleware.CORSWithConfig(middleware.CORSConfig{
-			AllowOrigins: []string{"http://localhost:3000"},
-			AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+			AllowOrigins:     strings.Split(allowedURLOrigins, ","),
+			AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+			AllowCredentials: true,
 		}),
 		// Timeout stuff
 		middleware.TimeoutWithConfig(middleware.TimeoutConfig{
@@ -57,9 +63,31 @@ func main() {
 
 	e.GET("/", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, map[string]string{
-			"message": "It's me hi I'm the problem it's me",
+			"message": "hi",
 		})
 	})
 
-	e.Logger.Fatal(e.Start(":4000"))
+	e.GET("/ping", func(c echo.Context) error {
+		return c.String(http.StatusOK, "I'm alive")
+	})
+
+	go func() {
+		if err := e.Start(":4000"); err != nil && err != http.ErrServerClosed {
+			e.Logger.Fatalf("Server failed to start: %v", err)
+		}
+	}()
+
+	closeDatMf := make(chan os.Signal, 1)
+	signal.Notify(closeDatMf, os.Interrupt)
+
+	<-closeDatMf
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	if err := e.Shutdown(ctx); err != nil {
+		e.Logger.Fatalf("Server forced to shut down: %v", err)
+	}
+
+	log.Println("I sleep now")
 }
