@@ -1,0 +1,13 @@
+{
+  "name": "finky-db",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "only-allow": "^1.2.1"
+  }
+}
