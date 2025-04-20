@@ -1,17 +1,17 @@
 package schemas
 
 type Profile struct {
-	Username string
-	Handle   string
-	Date     string
-	IsAdmin  bool
+	Username string `json:"username"`
+	Handle   string `json:"handle"`
+	JoinDate string `json:"join_date"`
+	IsAdmin  bool   `json:"is_admin"`
 	EntityRef
 }
 
 type AddedByUser struct {
-	ApprovalDate   string
-	Status         string
-	RejectedReason *string
+	ApprovalDate   string  `json:"approval_date"`
+	Status         string  `json:"status"`
+	RejectedReason *string `json:"rejected_reason"`
 	Profile
 }
 
@@ -21,7 +21,7 @@ type Character struct {
 	Name        string    `json:"name"`
 	Id          int       `json:"id"`
 	Description string    `json:"description"`
-	Sources     []*string `json:"sources,omitempty"` // Sources are optional
+	Sources     *[]string `json:"sources,omitempty"` // Sources are optional
 	Tags        []string  `json:"tags"`
 
 	Image EntityImage `json:"img"`
@@ -64,7 +64,7 @@ type Character struct {
 			EntityRef
 		} `json:"voice_actor"`
 
-		Others []interface{} `json:"others"`
+		Others []any `json:"others"`
 	} `json:"attributes"`
 
 	AddedBy AddedByUser `json:"added_by"`
