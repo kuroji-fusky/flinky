@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/joho/godotenv"
+	"github.com/kuroji-fusky/flinky/server/routes"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -34,8 +35,9 @@ func main() {
 		log.Fatalf("Error getting .env: %v", envErr)
 	}
 
-	// customAPIKey := os.Getenv("FINKY_SECRET_API_TOKEN")
-	allowedURLOrigins := os.Getenv("FINKY_SERVER_CORS_ALLOWED_DOMAINS")
+	// customAPIKey := os.Getenv("FLINKY_SECRET_API_TOKEN")
+	// customAPIKey := os.Getenv("FLINKY_SERVER_PORT")
+	allowedURLOrigins := os.Getenv("FLINKY_SERVER_CORS_ALLOWED_DOMAINS")
 	if allowedURLOrigins == "" {
 		allowedURLOrigins = "http://localhost:3000"
 	}
@@ -61,15 +63,7 @@ func main() {
 		customHeader,
 	)
 
-	e.GET("/", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, map[string]string{
-			"message": "hi",
-		})
-	})
-
-	e.GET("/ping", func(c echo.Context) error {
-		return c.String(http.StatusOK, "I'm alive")
-	})
+	routes.BasicBitchRoutes(e)
 
 	go func() {
 		if err := e.Start(":4000"); err != nil && err != http.ErrServerClosed {

@@ -17,7 +17,7 @@ type AddedByUser struct {
 
 // The juicy stuff
 
-type Character struct {
+type CharacterResponse struct {
 	Name        string    `json:"name"`
 	Id          int       `json:"id"`
 	Description string    `json:"description"`

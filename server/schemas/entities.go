@@ -1,16 +1,12 @@
 package schemas
 
-type EntityURL struct {
-	URL string `json:"url"`
-}
-
 type EntityRef struct {
-	EntityURL
-	AvatarURL   string `json:"avatar_url"`
-	EndpointURL string `json:"endpoint_url"`
+	URL         string      `json:"url"`
+	AvatarURL   EntityImage `json:"avatar_url"`
+	EndpointURL string      `json:"endpoint_url"`
 }
 
 type EntityImage struct {
-	EntityURL
+	URL string  `json:"url"`
 	Alt *string `json:"alt"`
 }
