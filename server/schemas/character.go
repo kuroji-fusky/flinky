@@ -1,20 +1,5 @@
 package schemas
 
-type Profile struct {
-	Username string `json:"username"`
-	Handle   string `json:"handle"`
-	JoinDate string `json:"join_date"`
-	IsAdmin  bool   `json:"is_admin"`
-	EntityRef
-}
-
-type AddedByUser struct {
-	ApprovalDate   string  `json:"approval_date"`
-	Status         string  `json:"status"`
-	RejectedReason *string `json:"rejected_reason"`
-	Profile
-}
-
 // The juicy stuff
 
 type CharacterResponse struct {
