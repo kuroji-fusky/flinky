@@ -1,9 +1,55 @@
 ---
-layout: false
+title: Guidelines
+description: Guidelines of maintaining a database of fluffy creatures
 ---
 
-test
+<script>
+	import { Meta, ProseWrapper } from "$lib/components";
+</script>
+<Meta title="{title}" description="{description}" />
 
-```js
-console.log("lmao")
-```
+<ProseWrapper>
+
+# {title}
+
+Flinky is a crowd-sourced curation site about cataloging real, notable, and anthropomorphic characters from all sorts of consumer media, with a clear source trail and proper context—no fan-made knockoffs, no meme animals, and no "THIS MY OC, DON'T STEAL!!!11!" entries.
+
+In short, here's the gist of it:
+
+- ✅ A character should have animalistic/anthropomorphic features
+- ✅ Must be tied to a brand or reputable IP and have a decent amount of media presence
+  - ✅ Corporate anthro characters are also permissible as along it's not a generic logo
+- ❌ It shouldn't be any one else's fursona that's used as their personal avatar
+- ❌ It also shouldn't be a modified or recolors from an existing character from a known Franchise
+- ❌ Character(s) that are fabricated that may otherwise lead to a conflict of interest
+
+---
+
+## 1. Characters that are *strictly* show animalistic traits
+
+
+If a character doesn't show form of verbal communication, it should have some form of sapience or empathy.
+
+### 1a. Anthro-Adjacent Franchises (Pokémon, Digimon, etc.)
+
+### 1b. Characters with Shapeshifting Forms
+
+## 2. Tied to a brand/reputable IP
+
+### 2a. Mascots
+### 2b. Fictional characters
+
+## 3. Notability and Metadata
+
+### 3a. Fan-Made and AUs
+
+This pertains to characters that belong to oneself, especially when used as an avatar, this includes:
+
+- **Fursonas**: These are used as a self-expression and do not qualify in section 2a and 2b.
+- **Edits of existing characters**: Whether your character is an altered version of *Sonic*, it won't make the cut. 
+
+## Bottom line
+
+Make sure you do your due diligence and verify the character’s existence by doing a background check and to ensure that it’s not fabricated in any way—preferably backed up by its source material and it only takes more than just screenshots, ya dingus.
+
+</ProseWrapper>
