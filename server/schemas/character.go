@@ -3,11 +3,13 @@ package schemas
 // The juicy stuff
 
 type CharacterResponse struct {
-	Name        string    `json:"name"`
-	Id          int       `json:"id"`
-	Description string    `json:"description"`
-	Sources     *[]string `json:"sources,omitempty"` // Sources are optional
-	Tags        []string  `json:"tags"`
+	Name             string         `json:"name"`
+	Id               int            `json:"id"`
+	Description      string         `json:"description"`
+	Sources          *[]string      `json:"sources,omitempty"` // Sources are optional
+	Tags             []string       `json:"tags"`
+	IsLocked         bool           `json:"is_locked"`
+	VerifiedByAuthor *[]interface{} `json:"verified_by_author,omitempty"`
 
 	Image EntityImage `json:"img"`
 
@@ -16,6 +18,12 @@ type CharacterResponse struct {
 		Source  string       `json:"source"`
 		AddedBy *AddedByUser `json:"added_by"`
 	} `json:"gallery"`
+
+	Citations []struct {
+		Source  string      `json:"source"`
+		Url     string      `json:"url"`
+		AddedBy AddedByUser `json:"added_by"`
+	} `json:"citations"`
 
 	Attributes struct {
 		Gender GenderAlias `json:"gender"`
@@ -43,13 +51,17 @@ type CharacterResponse struct {
 			Lang *string `json:"lang,omitempty"`
 		} `json:"aliases,omitempty"`
 
-		VoiceActor []struct {
+		VoiceActor *[]struct {
 			Name string
 			As   string
 			EntityRef
-		} `json:"voice_actor"`
+		} `json:"voice_actor,omitempty"`
 
 		Others []any `json:"others"`
+
+		// Normally an object type, but this could theortically mold into whatever type if a character
+		// has a complex family tree
+		FamilyTree *[]interface{} `json:"family_tree,omitempty"`
 	} `json:"attributes"`
 
 	AddedBy AddedByUser `json:"added_by"`
