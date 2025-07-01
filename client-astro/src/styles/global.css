@@ -1,0 +1,12 @@
+@import "@fontsource/inter";
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
+
+@custom-variant dark (&:where(html.dark *), @media (prefers-color-scheme:dark));
+
+@theme {
+  --font-body: "Inter", var(--default-font-family);
+  --font-mono: "Azeret Mono", var(--default-mono-font-family);
+}

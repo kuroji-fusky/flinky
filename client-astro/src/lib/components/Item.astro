@@ -1,0 +1,20 @@
+---
+interface Props {
+  title: string
+  img?: string
+  meta?: Partial<{}>
+}
+
+const { title } = Astro.props
+---
+
+<div class="@container relative flex gap-x-3 py-3 px-2.5 rounded-md group hover:bg-neutral-300/15 border border-transparent hover:border-neutral-300">
+  <div class="size-22 bg-red-300 rounded-sm row-span-3"></div>
+  <div>
+    <h2 class="col-start-2 w-fit font-bold text-2xl">{title}</h2>
+    <div class="col-start-2 row-start-2">
+      <span class="opacity-65">some meta</span>
+    </div>
+  </div>
+  <button class="absolute top-3 right-2.5 opacity-0 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100">MORE</button>
+</div>

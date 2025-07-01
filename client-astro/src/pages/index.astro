@@ -1,0 +1,50 @@
+---
+import Item from "../lib/components/Item.astro"
+import Layout from "../lib/layouts/Layout.astro"
+import SectionTitle from "../lib/layouts/SectionTitle.astro"
+---
+
+<Layout title="Home">
+	<div class="max-w-7xl mx-auto px-6 space-y-9">
+		<header class="h-[600px]">hero stuff</header>
+
+		<div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-4">
+			<SectionTitle heading="Recently added">
+				<div class="space-y-3 *:-mx-2.5">
+					<Item title="Placeholder" />
+					<Item title="Placeholder" />
+					<Item title="Placeholder" />
+					<Item title="Placeholder" />
+					<Item title="Placeholder" />
+				</div>
+			</SectionTitle>
+			<SectionTitle heading="Most popular this week">
+				<div slot="custom-heading" class="flex justify-between">
+					 <h2 class="font-bold text-3xl mb-3">Most popular this week</h2>
+					 <span>
+						<!-- <select class="dark:bg-black rounded-md">
+							<option value="week" selected>This week</option>
+							<option value="3-months" selected>3 months</option>
+							<option value="6-months" selected>6 months</option>
+							<option value="year" selected>1 year</option>
+							<option value="all" selected>All time</option>
+						</select> -->
+					 </span>
+				</div>
+				<div class="space-y-3 *:-mx-2.5">
+					<Item title="Placeholder" />
+					<Item title="Placeholder" />
+					<Item title="Placeholder" />
+					<Item title="Placeholder" />
+					<Item title="Placeholder" />
+				</div>
+			</SectionTitle>
+		</div>
+
+		<SectionTitle heading="Most popular"> Placeholder </SectionTitle>
+
+		<SectionTitle heading="Browse by category"> Placeholder </SectionTitle>
+
+		<SectionTitle heading="Newsletter thingy"> Placeholder </SectionTitle>
+	</div>
+</Layout>
