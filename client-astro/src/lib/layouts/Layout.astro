@@ -21,7 +21,7 @@ const { title, description } = Astro.props
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
   </head>
-  <body class:list={["font-[Inter] antialiased overflow-x-hidden select-none dark:text-white dark:bg-black scheme-light-dark", "text-sm lg:text-base"]}>
+  <body class:list={["font-[Inter] antialiased overflow-x-hidden not-[.select-auto]:select-none dark:text-white dark:bg-black scheme-light-dark", "text-sm lg:text-base"]}>
     <a href="#main-content" class="absolute top-0 px-6 py-4 z-[101] opacity-0 focus:opacity-100 focus:pointer-events-auto">Skip to content?</a>
     <Navbar />
     <main id="main-content" class="py-6">

@@ -1,0 +1,33 @@
+---
+import Layout from "../../lib/layouts/Layout.astro"
+---
+
+<Layout title="Character">
+  <div class="px-6 max-w-7xl mx-auto space-y-4">
+    <nav>breadcrumb</nav>
+    <header class="flex gap-x-4 select-auto">
+      <div class="size-44 bg-purple-200 rounded-md"></div>
+      <div class="select-auto flex flex-col gap-y-2">
+        <h1 class="text-4xl font-bold">Character name</h1>
+
+        <div class="flex gap-x-3.5 opacity-65">
+          <span>detail</span>
+          <span>detail</span>
+          <span>detail</span>
+        </div>
+        
+        <div class="flex gap-x-3">
+          <button>Cross-search</button>
+        </div>
+      </div>
+    </header>
+    <nav class="flex gap-x-3">
+      <button>Overview</button>
+      <button>Gallery</button>
+      <button>Others</button>
+    </nav>
+  </div>
+  <div class="px-6 max-w-7xl mx-auto mt-4">
+    <section>bio and crap</section>
+  </div>
+</Layout>
