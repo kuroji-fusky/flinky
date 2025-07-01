@@ -1,11 +1,8 @@
 ---
-interface Props {
-  title: string
-  img?: string
-  meta?: Partial<{}>
-}
+import type { ItemProps as Props } from "./ItemTypes";
+import { EllipsisVertIcon } from "./icons";
 
-const { title } = Astro.props
+const { title } = Astro.props;
 ---
 
 <div
@@ -24,6 +21,7 @@ const { title } = Astro.props
   </div>
   <button
     class="absolute top-3 right-2.5 opacity-0 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100"
-    >MORE</button
   >
+    <EllipsisVertIcon />
+  </button>
 </div>
