@@ -6,9 +6,10 @@ type CharacterResponse struct {
 	Name             string         `json:"name"`
 	Id               int            `json:"id"`
 	Description      string         `json:"description"`
-	Sources          *[]string      `json:"sources,omitempty"` // Sources are optional
+	Sources          *[]string      `json:"sources,omitempty"` // Sources are optional but recommended for verifying things, you bitches
 	Tags             []string       `json:"tags"`
 	IsLocked         bool           `json:"is_locked"`
+	IsNSFW           bool           `json:"is_nsfw"`
 	VerifiedByAuthor *[]interface{} `json:"verified_by_author,omitempty"`
 
 	Image EntityImage `json:"img"`
@@ -46,9 +47,9 @@ type CharacterResponse struct {
 		} `json:"quotes"`
 
 		Aliases *[]struct {
-			Type string  `json:"type"`
-			Name string  `json:"name"`
-			Lang *string `json:"lang,omitempty"`
+			Type CharacterTypeAlias `json:"type"`
+			Name string             `json:"name"`
+			Lang *string            `json:"lang,omitempty"`
 		} `json:"aliases,omitempty"`
 
 		VoiceActor *[]struct {
