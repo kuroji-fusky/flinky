@@ -1,15 +1,15 @@
 ---
-import { MenuIcon, ChevronDownIcon, Settings2Icon, SearchIcon } from "../icons";
+import { MenuIcon, ChevronDownIcon, Settings2Icon, SearchIcon } from "../icons"
 ---
 
 <nav data-global-navigation="" class="sticky top-0 bg-inherit z-[100]">
   <div class="px-6 py-3.5 flex items-center gap-x-3">
-    <button class="px-2 py-2 rounded-md cursor-pointer">
+    <button class="px-2 py-2 rounded-md cursor-pointer block lg:hidden">
       <MenuIcon />
     </button>
     <a href="/">Flinky</a>
     <button
-      class="px-3 py-1.5 border rounded-md cursor-pointer inline-flex items-center gap-x-1"
+      class="px-3 py-1.5 hover:bg-blue-400/60 rounded-md cursor-pointer inline-flex items-center gap-x-1"
     >
       <span>Browse</span>
       <ChevronDownIcon width="1em" height="1em" />
@@ -23,15 +23,15 @@ import { MenuIcon, ChevronDownIcon, Settings2Icon, SearchIcon } from "../icons";
       </span>
       <input
         id="global-search"
-        class="pl-9 py-2 max-w-96 w-full dark:bg-neutral-900 rounded-md"
+        class="pl-9 py-1.5 lg:py-2 max-w-96 w-full dark:bg-neutral-900 rounded-md placeholder:text-sm lg:placeholder:text-base"
         role="searchbox"
         type="text"
         placeholder="Search"
       />
     </div>
     <div class="flex gap-x-1">
-      <button class="px-3 py-1.5 border rounded-md cursor-pointer"
-        >Request</button
+      <a href="/requests" class="px-3 py-1.5 border rounded-md cursor-pointer"
+        >Request</a
       >
       <button
         class="px-2 py-2 border rounded-md cursor-pointer"

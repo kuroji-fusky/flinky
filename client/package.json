@@ -22,6 +22,7 @@
     "astro-icon": "^1.1.0",
     "astro-seo-schema": "^4.0.2",
     "lodash-es": "^4.17.21",
+    "nanostores": "^1.0.1",
     "svelte": "^5.34.9",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3",

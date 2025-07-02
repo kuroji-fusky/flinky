@@ -1,0 +1,51 @@
+---
+import { ClientRouter } from "astro:transitions"
+import "../../styles/global.css"
+
+import Footer from "../components/base/Footer.astro"
+import Navbar from "../components/base/Navbar.astro"
+
+interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description } = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:title" content={title} />
+
+    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:title" content={title} />
+
+    <meta name="generator" content={Astro.generator} />
+    <ClientRouter />
+  </head>
+  <body
+    class:list={[
+      "font-[Inter] antialiased overflow-x-hidden not-[.select-auto]:select-none dark:text-white dark:bg-black scheme-light-dark",
+      "text-sm lg:text-base",
+    ]}
+  >
+    <a
+      href="#main-content"
+      class="bg-inherit border absolute top-0 px-6 py-4 z-[101] opacity-0 focus:opacity-100 pointer-events-none focus:pointer-events-auto"
+      >Skip to content?</a
+    >
+    <Navbar />
+    <main id="main-content" class="py-6">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
