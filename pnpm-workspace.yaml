@@ -1,6 +1,7 @@
 packages:
   - "client"
 onlyBuiltDependencies:
-  - '@tailwindcss/oxide'
+  - "@biomejs/biome"
+  - "@tailwindcss/oxide"
   - esbuild
   - sharp

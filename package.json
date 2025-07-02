@@ -9,12 +9,5 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "only-allow": "1.2.1"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@biomejs/biome",
-      "@tailwindcss/oxide",
-      "esbuild"
-    ]
   }
 }
