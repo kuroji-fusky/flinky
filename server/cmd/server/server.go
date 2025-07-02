@@ -54,7 +54,7 @@ func main() {
 		}),
 		// Timeout stuff
 		middleware.TimeoutWithConfig(middleware.TimeoutConfig{
-			Timeout: 25 * time.Second,
+			Timeout: 15 * time.Second,
 		}),
 		// Redirect trailing slash, cuz those are freaking cringe
 		middleware.RemoveTrailingSlashWithConfig(middleware.TrailingSlashConfig{

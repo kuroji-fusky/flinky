@@ -14,9 +14,10 @@ const (
 	MediumOthers     FranchiseMediumAlias = "others"
 	MediumSeries     FranchiseMediumAlias = "series"
 
-	CharAliasAlternate   CharacterTypeAlias = "alternate"
-	CharAliasNickname    CharacterTypeAlias = "nickname"
-	CharAliasTranslation CharacterTypeAlias = "translation"
+	CharAliasAlternate   CharacterTypeAlias = "ALTERNATE"
+	CharAliasNickname    CharacterTypeAlias = "NICKNAME"
+	CharAliasTranslation CharacterTypeAlias = "TRANSLATION"
+	CharAliasMononym     CharacterTypeAlias = "MONONYM"
 
 	GenderMale   GenderAlias = "male"
 	GenderFemale GenderAlias = "female"
