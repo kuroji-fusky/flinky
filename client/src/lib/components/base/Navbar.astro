@@ -2,6 +2,34 @@
 import { MenuIcon, ChevronDownIcon, Settings2Icon, SearchIcon } from "../icons"
 ---
 
+<script>
+  import { isBrowseMenuOpen } from "../../stores";
+
+  const browseBtn = document.getElementById("browse-btn") as HTMLButtonElement;
+
+  const htmlRoot = document.documentElement
+
+  isBrowseMenuOpen.subscribe(() => {
+    browseBtn.ariaExpanded = isBrowseMenuOpen.value.toString();
+
+    if (isBrowseMenuOpen.value) {
+      htmlRoot.classList.add("overflow-y-hidden")
+    } else {
+      htmlRoot.classList.remove("overflow-y-hidden")
+    }
+  });
+
+  browseBtn.addEventListener("click", () => {
+    isBrowseMenuOpen.set(!isBrowseMenuOpen.value);
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (isBrowseMenuOpen.value && e.key === "Escape") {
+      isBrowseMenuOpen.set(false);
+    }
+  });
+</script>
+
 <nav data-global-navigation="" class="sticky top-0 bg-inherit z-[100]">
   <div class="px-6 py-3.5 flex items-center gap-x-3">
     <button class="px-2 py-2 rounded-md cursor-pointer block lg:hidden">
@@ -9,6 +37,8 @@ import { MenuIcon, ChevronDownIcon, Settings2Icon, SearchIcon } from "../icons"
     </button>
     <a href="/">Flinky</a>
     <button
+      id="browse-btn"
+      aria-expanded="false"
       class="px-3 py-1.5 hover:bg-blue-400/60 rounded-md cursor-pointer inline-flex items-center gap-x-1"
     >
       <span>Browse</span>
@@ -27,6 +57,8 @@ import { MenuIcon, ChevronDownIcon, Settings2Icon, SearchIcon } from "../icons"
         role="searchbox"
         type="text"
         placeholder="Search"
+        autocomplete="off"
+        spellcheck="false"
       />
     </div>
     <div class="flex gap-x-1">
