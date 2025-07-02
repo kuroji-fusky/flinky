@@ -17,7 +17,7 @@ const { title, description } = Astro.props
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
@@ -29,6 +29,10 @@ const { title, description } = Astro.props
     <meta name="twitter:title" content={title} />
 
     <meta name="generator" content={Astro.generator} />
+
+    {/* Sitemap */}
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
     <ClientRouter />
   </head>
   <body
