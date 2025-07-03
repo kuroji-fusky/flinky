@@ -5,6 +5,8 @@ import sitemap from "@astrojs/sitemap"
 import Icons from "unplugin-icons/vite"
 
 export default defineConfig({
+  output: "server",
+  
   vite: {
     plugins: [
       tailwindcss(),
@@ -13,7 +15,6 @@ export default defineConfig({
       }),
     ],
   },
-  output: "server",
 
   integrations: [sitemap()],
 })

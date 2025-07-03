@@ -1,9 +1,12 @@
 ---
 import { ClientRouter } from "astro:transitions"
 import "../../styles/global.css"
-
 import Footer from "../components/base/Footer.astro"
 import Navbar from "../components/base/Navbar.astro"
+import PreloadFont from "../components/base/PreloadFont.astro"
+
+import interFont from "@fontsource/inter/files/inter-latin-400-normal.woff2?url"
+import interFont700 from "@fontsource/inter/files/inter-latin-700-normal.woff2?url"
 
 interface Props {
   title: string
@@ -29,6 +32,8 @@ const { title, description } = Astro.props
     <meta name="twitter:title" content={title} />
 
     <meta name="generator" content={Astro.generator} />
+
+    <PreloadFont urls={[interFont, interFont700]} />
 
     {/* Sitemap */}
     <link rel="sitemap" href="/sitemap-index.xml" />
