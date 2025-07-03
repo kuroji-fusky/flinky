@@ -63,7 +63,12 @@ func main() {
 		customHeader,
 	)
 
+	// Connecting stuff
+
 	routes.RegisterBasicBitchRoutes(e)
+	routes.RegisterCharacterRoutes(e)
+
+	// Connecting stuff
 
 	go func() {
 		if err := e.Start(":4000"); err != nil && err != http.ErrServerClosed {
