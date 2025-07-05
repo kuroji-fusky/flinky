@@ -26,7 +26,7 @@ Install the frontend dependencies by running:
 pnpm install
 ```
 
-For the backend, go to the `server` directory and run:
+From the `server` directory, run:
 
 ```console
 go get download
