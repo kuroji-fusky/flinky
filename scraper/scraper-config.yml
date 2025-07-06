@@ -1,0 +1,11 @@
+# Used to keep track of words from the "Appearance" sections or if no infobox exists
+whitelist:
+  - "fox"
+  - "kitsune"
+  - "wolf"
+  - "werewolf"
+
+# Ignore filters can take regex too
+ignore-filters:
+  - text: "Angry Birds"
+  - text: "Category:Angry Birds characters"
