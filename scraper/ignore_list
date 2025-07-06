@@ -1,0 +1,5 @@
+# This list is an ignore file for ignoring URLs and
+# specific strings that the scraper will ignore
+#
+# Syntax: <url|text|re> <content>
+#

@@ -1,9 +1,11 @@
-from bs4 import BeautifulSoup
+import bs4
 import requests
+from typing import Union
 
 __all__ = [
     "req_wrapper",
-    "req_soup"
+    "req_soup",
+    "SoupMe"
 ]
 
 rs = requests.Session()
@@ -47,8 +49,13 @@ def req_wrapper(url: str,
 
 def req_soup(url: str):
     req = req_wrapper(url)
+    return bs4.BeautifulSoup(req.text, "html.parser")
 
-    if req is None:
-        raise ValueError("Request failed and returned nothing, just like your soul")  # noqa
 
-    return BeautifulSoup(req.text, "html.parser")
+class SoupMe:
+    @staticmethod
+    def extract_links(link_el: Union[bs4.ResultSet[bs4.Tag], bs4.Tag], *, prefix):
+        if isinstance(link_el, bs4.ResultSet):
+            return [l.get("href") for l in link_el]
+        else:
+            return link_el.get("href")
