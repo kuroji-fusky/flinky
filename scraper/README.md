@@ -1,4 +1,4 @@
-# fandom-scraper
+# scraper
 
 This was created as a quick reference on how tedious it is to curate a global furry database.
 

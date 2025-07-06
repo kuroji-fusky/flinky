@@ -1,0 +1,7 @@
+__pycache__/
+
+# We don't want to track furries on here, gross
+images/
+
+# Cache file for storing URLs for wiki links
+fandom_cache.txt
