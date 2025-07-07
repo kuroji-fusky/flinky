@@ -103,23 +103,20 @@ def main():
 
     h_article_el = h_page_initial.select(".category-page__members-for-char a.category-page__member-link")  # noqa
 
-    h_article_links = SoupMe.extract_links(h_article_el, prefix=initial_req_url)  # noqa
-    h_article_text = SoupMe.extract_text_content(h_article_el)
+    h_article_links = soup_utils.extract_links(h_article_el, prefix=initial_req_url)  # noqa
+    h_article_text = soup_utils.extract_text_content(h_article_el)
 
     # Set the "Last" button URL, if its a match, get the remaining items, then start scraping the articles found
-    end_link_marker = SoupMe.extract_links(
-        h_page_initial.select_one(".category-page__pagination a:last-child")
+    end_link_marker = soup_utils.extract_links(
+        h_page_initial.select_one(
+            ".category-page__pagination a:last-child")  # type: ignore
     )
-
-    print(end_link_marker)
 
     for link, text in zip(h_article_links, h_article_text):
         heroes_articles.append({
             "link": link,
             "text": text,
         })
-
-    # print(json.dumps(heroes_articles, indent=2))
 
 
 if __name__ == "__main__":

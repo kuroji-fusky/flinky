@@ -7,7 +7,7 @@ from functools import wraps
 __all__ = [
     "req_wrapper",
     "req_soup",
-    "SoupMe"
+    "soup_utils"
 ]
 
 rs = requests.Session()
@@ -71,7 +71,7 @@ def bs4_instance_check(func):
 
 
 @final
-class SoupMe:
+class soup_utils:
     @staticmethod
     def extract_links(link_el: FlexiTag, *, prefix=""):
         if not isinstance(link_el, (bs4.ResultSet, bs4.Tag)):
