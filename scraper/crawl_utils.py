@@ -59,14 +59,13 @@ class RequestWrapper:
 FlexiTag = Union[bs4.ResultSet[bs4.Tag], Optional[bs4.Tag]]
 
 
-def bs4_instance_check(func):
+def bs4_scope_tags(func):
     def wrapper():
         func()
 
     return wrapper
 
 
-# TODO add a constructor for flexible poosay
 @final
 class soup_utils:
     @staticmethod
@@ -82,10 +81,8 @@ class soup_utils:
         elif not (isinstance(link_el, bs4.Tag) and link_el.name == "a"):
             raise ValueError("link_el must be an `<a>` tag or a type of ResultSet of `<a>` tags")  # noqa
 
-        if isinstance(link_el, bs4.ResultSet):
-            return [f'{prefix}{l.get("href")}' for l in link_el]
-        else:
-            return f'{prefix}{link_el.get("href")}'
+        return [f'{prefix}{l.get("href")}'
+                for l in (link_el if isinstance(link_el, bs4.ResultSet) else [link_el])]
 
     @staticmethod
     def extract_text_content(el: FlexiTag):
@@ -93,7 +90,5 @@ class soup_utils:
             raise TypeError(
                 "Item(s) provided must be a BeautifulSoup `ResultSet` or `Tag`")
 
-        if isinstance(el, bs4.ResultSet):
-            return [e.get_text("", True) for e in el]
-        else:
-            return el.get_text("", True)
+        return [e.get_text(strip=True)
+                for e in (el if isinstance(el, bs4.ResultSet) else [el])]
