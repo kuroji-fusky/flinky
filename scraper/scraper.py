@@ -28,6 +28,7 @@ args = parser.parse_args()
 
 GLOBAL_TIMEOUT: int = args.timeout
 GLOBAL_DELAY: int = args.delay
+GLOBAL_RETRIES: int = args.retries
 
 
 def _delay(sleep_sec):
@@ -64,13 +65,22 @@ class ScraperConfig:
     ignore_filters: list[tuple[str, str]]
 
 
+CURRENT_TIME = round(time.time())
+
+
+class __req_url(RequestWrapper):
+    def __init__(self, url: str, referer=None):
+        super().__init__(url, referer, GLOBAL_TIMEOUT, GLOBAL_RETRIES)
+
+
 def main():
     # Load order:
-    #   - Cached links
-    #   - scraper-config.yml
-    #   - If `--use-db` is true, make a connection, if it fails, ask to continue to fallback, retry, or cancel
-    #   - Scrape for Heroes and Villains wikis
+    #   - (1) Cached links
+    #   - (2) Read scraper config
+    #   - (3) If `--use-db` is true, make a connection, if it fails, ask to continue to fallback, retry, or cancel
+    #   - (4) Scrape for Heroes and Villains wikis
 
+    # (1) Cached links
     # TODO: wrap this from a class
     try:
         with open("fandom_cache.txt", "r", encoding="utf-8") as f:
@@ -78,11 +88,12 @@ def main():
 
     except FileNotFoundError:
         print("Creating cache file...")
-        current_time = round(time.time())
 
-        make_file("fandom_cache.txt", f"lastcheck {current_time}\n")
+        make_file("fandom_cache.txt", f"lastcheck {CURRENT_TIME}\n")
 
-    # Read the config file
+    os.makedirs("data/", exist_ok=True)
+
+    # (2) Read the config file
     with open("scraper-config.yml", "r") as f:
         import yaml
         _scraper_config = yaml.load(f, Loader=yaml.Loader)
@@ -97,26 +108,44 @@ def main():
     print(f"{len(scraper_config.whitelist)} items found in the whitelist")
 
     _delay(GLOBAL_DELAY)
+
+    # (4) Scrape logic
     initial_req_url = f"https://{HEROES_BASE_URL}"
 
-    h_page_initial = req_soup(f"{initial_req_url}/wiki/Category:Animals")  # noqa
+    h_page_initial = __req_url(f"{initial_req_url}/wiki/Category:Animals").soup()  # noqa
 
     h_article_el = h_page_initial.select(".category-page__members-for-char a.category-page__member-link")  # noqa
 
     h_article_links = soup_utils.extract_links(h_article_el, prefix=initial_req_url)  # noqa
     h_article_text = soup_utils.extract_text_content(h_article_el)
 
+    # for link, text in zip(h_article_links, h_article_text):
+    #     heroes_articles.append({
+    #         "link": link,
+    #         "text": text,
+    #     })
+
     # Set the "Last" button URL, if its a match, get the remaining items, then start scraping the articles found
     end_link_marker = soup_utils.extract_links(
         h_page_initial.select_one(
-            ".category-page__pagination a:last-child")  # type: ignore
+            ".category-page__pagination a:last-child"
+        )
     )
 
-    for link, text in zip(h_article_links, h_article_text):
-        heroes_articles.append({
-            "link": link,
-            "text": text,
-        })
+    next_incoming_url = soup_utils.extract_links(
+        h_page_initial.select_one(
+            ".category-page__pagination a:nth-child(2)"
+        )
+    )
+
+    # Recursively find every entry until it hits `end_link_marker`,
+    # which will blank out `next_incoming_url`, effectively ending the loop
+    while next_incoming_url:
+        _delay(GLOBAL_DELAY)
+
+        # End the loop by setting it to None
+        if next_incoming_url == end_link_marker:
+            next_incoming_url = None
 
 
 if __name__ == "__main__":

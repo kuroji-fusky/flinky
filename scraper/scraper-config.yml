@@ -1,9 +1,12 @@
 # Used to keep track of words from the "Appearance" sections or if no infobox exists
+# Whitelists are case-insensitive and can be negated (e.g. "!fox")
 whitelist:
   - "fox"
   - "kitsune"
   - "wolf"
   - "werewolf"
+  - "hyena"
+  - "otter"
 
 # Ignore filters can take regex too
 ignore-filters:

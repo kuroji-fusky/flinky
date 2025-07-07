@@ -1,12 +1,9 @@
 import bs4
 import requests  # type:ignore
-from typing import Union, final
-import time
-from functools import wraps
+from typing import Union, Optional, final
 
 __all__ = [
-    "req_wrapper",
-    "req_soup",
+    "RequestWrapper",
     "soup_utils"
 ]
 
@@ -17,50 +14,49 @@ HEADERS = {
 }
 
 
-def req_wrapper(url: str,
-                referer=None,
-                timeout: int = 15,
-                retries: int = 3):
-    """
-    Args:
-        url (str): The URL to request from
-        referer (str, optional): Adds a `Referer` header to the request
-        timeout (int, optional): Timeout that bitch
-        retries (int, optional): How many retries before it dies
+class RequestWrapper:
+    def __init__(self,
+                 url: str,
+                 referer=None,
+                 timeout: int = 15,
+                 retries: int = 3):
+        """
+        Args:
+            url (str): The URL to request from
+            referer (str, optional): Adds a `Referer` header to the request
+            timeout (int, optional): Timeout that bitch
+            retries (int, optional): How many retries before it dies
 
-    Returns:
-        Response: The response
-    """
-    retry_count = 0
+        Returns:
+            Response: The response
+        """
+        retry_count = 0
 
-    while retry_count < retries:
-        try:
-            headers = dict(HEADERS)
-            if referer is not None:
-                headers["Referer"] = referer
+        while retry_count < retries:
+            try:
+                headers = dict(HEADERS)
+                if referer is not None:
+                    headers["Referer"] = referer
 
-            return rs.get(url,
-                          headers=headers,
-                          timeout=timeout)
+                self.req_content = rs.get(url,
+                                          headers=headers,
+                                          timeout=timeout)
 
-        except (requests.exceptions.Timeout, ConnectionError) as e:
-            if isinstance(e, requests.exceptions.Timeout):
-                retry_count += 1
+            except (requests.exceptions.Timeout, ConnectionError) as e:
+                if isinstance(e, requests.exceptions.Timeout):
+                    retry_count += 1
 
-                if retry_count == retries:
-                    raise
-            else:  # ConnectionError
-                raise ConnectionError("You got no internet fam")
+                    if retry_count == retries:
+                        raise
+                else:  # ConnectionError
+                    raise ConnectionError("You got no internet fam")
+
+    def soup(self):
+        req = self.req_content
+        return bs4.BeautifulSoup(req.text, "html.parser")
 
 
-def req_soup(url: str):
-    req = req_wrapper(url)
-    return bs4.BeautifulSoup(req.text, "html.parser")
-
-
-FlexiTag = Union[bs4.ResultSet[bs4.Tag], bs4.Tag]
-
-# TODO add a constructor for flexible poosay
+FlexiTag = Union[bs4.ResultSet[bs4.Tag], Optional[bs4.Tag]]
 
 
 def bs4_instance_check(func):
@@ -70,6 +66,7 @@ def bs4_instance_check(func):
     return wrapper
 
 
+# TODO add a constructor for flexible poosay
 @final
 class soup_utils:
     @staticmethod

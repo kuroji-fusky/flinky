@@ -1,9 +1,12 @@
+import bs4
+
+
 class FandomArticleParser:
-    def __init__(self, text: str) -> None:
+    def __init__(self, text: bs4.BeautifulSoup) -> None:
         # Isolate to the contents of the article, we strip the fat
         self.article_contents = text
 
-    def get_categories(self):
+    def get_categories(self, filter_categs: list[str]):
         """Gets the categories from an article page"""
         pass
 
