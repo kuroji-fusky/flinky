@@ -74,14 +74,7 @@ class __req_url(RequestWrapper):
         super().__init__(url, referer, GLOBAL_TIMEOUT, GLOBAL_RETRIES)
 
 
-def main():
-    # Load order:
-    #   - (1) Cached links
-    #   - (2) Read scraper config
-    #   - (3) If `--use-db` is true, make a connection, if it fails, ask to continue to fallback, retry, or cancel
-    #   - (4) Scrape for Heroes and Villains wikis
-
-    # (1) Cached links
+def pre_init():
     # TODO: wrap this from a class
     try:
         with open("fandom_cache.txt", "r", encoding="utf-8") as f:
@@ -110,6 +103,10 @@ def main():
     scraper_config.ignore_filters = ignore_filters_parsed
 
     print(f"{len(scraper_config.whitelist)} items found in the whitelist")
+
+
+def main():
+    pre_init()
 
     _delay(GLOBAL_DELAY)
 
