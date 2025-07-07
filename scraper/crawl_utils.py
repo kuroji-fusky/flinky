@@ -1,6 +1,8 @@
 import bs4
-import requests
-from typing import Union
+import requests  # type:ignore
+from typing import Union, final
+import time
+from functools import wraps
 
 __all__ = [
     "req_wrapper",
@@ -27,24 +29,28 @@ def req_wrapper(url: str,
         retries (int, optional): How many retries before it dies
 
     Returns:
-        Response: lmao
+        Response: The response
     """
     retry_count = 0
 
     while retry_count < retries:
         try:
+            headers = dict(HEADERS)
+            if referer is not None:
+                headers["Referer"] = referer
+
             return rs.get(url,
-                          headers={**HEADERS, "Referer": referer},
+                          headers=headers,
                           timeout=timeout)
 
-        except requests.exceptions.Timeout:
-            retry_count += 1
+        except (requests.exceptions.Timeout, ConnectionError) as e:
+            if isinstance(e, requests.exceptions.Timeout):
+                retry_count += 1
 
-            if retry_count == retries:
-                raise
-
-        except ConnectionError:
-            raise ConnectionError("Bruh you not connected to the internet")
+                if retry_count == retries:
+                    raise
+            else:  # ConnectionError
+                raise ConnectionError("You got no internet fam")
 
 
 def req_soup(url: str):
@@ -52,10 +58,45 @@ def req_soup(url: str):
     return bs4.BeautifulSoup(req.text, "html.parser")
 
 
+FlexiTag = Union[bs4.ResultSet[bs4.Tag], bs4.Tag]
+
+# TODO add a constructor for flexible poosay
+
+
+def bs4_instance_check(func):
+    def wrapper():
+        func()
+
+    return wrapper
+
+
+@final
 class SoupMe:
     @staticmethod
-    def extract_links(link_el: Union[bs4.ResultSet[bs4.Tag], bs4.Tag], *, prefix):
+    def extract_links(link_el: FlexiTag, *, prefix=""):
+        if not isinstance(link_el, (bs4.ResultSet, bs4.Tag)):
+            raise TypeError(
+                "Item(s) provided must be a BeautifulSoup `ResultSet` or `Tag`")
+
         if isinstance(link_el, bs4.ResultSet):
-            return [l.get("href") for l in link_el]
+            if not all(isinstance(el, bs4.Tag) and el.name == "a" for el in link_el):
+                raise ValueError("link_el must contain only `<a>` tags")
+
+        elif not (isinstance(link_el, bs4.Tag) and link_el.name == "a"):
+            raise ValueError("link_el must be an `<a>` tag or a type of ResultSet of `<a>` tags")  # noqa
+
+        if isinstance(link_el, bs4.ResultSet):
+            return [f'{prefix}{l.get("href")}' for l in link_el]
         else:
-            return link_el.get("href")
+            return f'{prefix}{link_el.get("href")}'
+
+    @staticmethod
+    def extract_text_content(el: FlexiTag):
+        if not isinstance(el, (bs4.ResultSet, bs4.Tag)):
+            raise TypeError(
+                "Item(s) provided must be a BeautifulSoup `ResultSet` or `Tag`")
+
+        if isinstance(el, bs4.ResultSet):
+            return [e.get_text("", True) for e in el]
+        else:
+            return el.get_text("", True)

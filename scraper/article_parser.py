@@ -2,13 +2,12 @@ class FandomArticleParser:
     def __init__(self, text: str) -> None:
         # Isolate to the contents of the article, we strip the fat
         self.article_contents = text
-        pass
-      
+
     def get_categories(self):
         """Gets the categories from an article page"""
         pass
 
-    def parse_infobox(self, keys: list[str]):
+    def parse_infobox(self, filter_keys: list[str]):
         """Parses contents from infobox, returns `None` if there aren't any"""
         pass
 
