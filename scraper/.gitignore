@@ -3,3 +3,4 @@ images/
 
 # Cache file for storing URLs for wiki links
 fandom_cache.txt
+fandom_cache.checkpoint.txt
