@@ -1,10 +1,14 @@
 import bs4
 import requests  # type:ignore
-from typing import Union, Optional, final
+from typing import Union, Optional, Any, final
+
+import json
+
 
 __all__ = [
     "RequestWrapper",
-    "soup_utils"
+    "BadgerCache",
+    "soup_utils",
 ]
 
 rs = requests.Session()
@@ -51,12 +55,13 @@ class RequestWrapper:
                 else:  # ConnectionError
                     raise ConnectionError("You got no internet fam")
 
+    @property
     def soup(self):
         req = self.req_content
         return bs4.BeautifulSoup(req.text, "html.parser")
 
 
-FlexiTag = Union[bs4.ResultSet[bs4.Tag], Optional[bs4.Tag]]
+_CompatTag = Union[bs4.ResultSet[bs4.Tag], Optional[bs4.Tag]]
 
 
 def bs4_scope_tags(func):
@@ -69,7 +74,7 @@ def bs4_scope_tags(func):
 @final
 class soup_utils:
     @staticmethod
-    def extract_links(link_el: FlexiTag, *, prefix=""):
+    def extract_links(link_el: _CompatTag, *, prefix=""):
         if not isinstance(link_el, (bs4.ResultSet, bs4.Tag)):
             raise TypeError(
                 "Item(s) provided must be a BeautifulSoup `ResultSet` or `Tag`")
@@ -85,10 +90,54 @@ class soup_utils:
                 for l in (link_el if isinstance(link_el, bs4.ResultSet) else [link_el])]
 
     @staticmethod
-    def extract_text_content(el: FlexiTag):
+    def extract_text_content(el: _CompatTag):
         if not isinstance(el, (bs4.ResultSet, bs4.Tag)):
             raise TypeError(
                 "Item(s) provided must be a BeautifulSoup `ResultSet` or `Tag`")
 
         return [e.get_text(strip=True)
                 for e in (el if isinstance(el, bs4.ResultSet) else [el])]
+
+
+class BadgerCache:
+    def __init__(self, filename: str, initial_content: Any, *, json_mode=False):
+        self.filename = filename
+        self.json_mode = json_mode
+        self.contents = None
+
+        if self.json_mode and not isinstance(initial_content, (dict, list)):
+            raise TypeError("You can't do that shit in JSON mode lmao")
+
+        try:
+            with open(filename, "r", encoding="utf-8") as f:
+                if self.json_mode:
+                    self.contents = json.load(f)
+                else:
+                    self.contents = f.read()
+
+        except FileNotFoundError:
+            with open(filename, "w", encoding="utf-8") as f:
+                if self.json_mode:
+                    json.dump(initial_content, f, ensure_ascii=True, indent=2)
+                else:
+                    f.write(str(initial_content))
+            self.contents = initial_content
+
+    @property
+    def get_dat_juicy_data(self):
+        return self.contents
+
+    def append(self, new_content: Any):
+        if not self.json_mode:
+            with open(self.filename, "a", encoding="utf-8") as f:
+                f.write(new_content)
+
+            self.contents += new_content
+            return
+
+        if not isinstance(self.contents, list):
+            raise TypeError("JSON append only works if the file contains a list.")  # noqa
+
+        self.contents.append(new_content)
+        with open(self.filename, "w", encoding="utf-8") as f:
+            json.dump(self.contents, f, ensure_ascii=True, indent=2)

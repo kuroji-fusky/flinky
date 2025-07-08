@@ -1,5 +1,5 @@
 import unittest
-from ..crawl_cache import BadgerCache  # type: ignore
+from ..crawl_utils import BadgerCache  # type: ignore
 
 
 class CacheTest(unittest.TestCase):

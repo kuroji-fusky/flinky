@@ -5,6 +5,7 @@ from argparse import ArgumentParser
 import json
 import time
 import os
+import sys
 
 parser = ArgumentParser()
 
@@ -108,12 +109,15 @@ def pre_init():
 def main():
     pre_init()
 
+    # End the script prematurely for debug purposes
+    sys.exit(0)
+
     _delay(GLOBAL_DELAY)
 
     # (4) Scrape logic
     initial_req_url = f"https://{HEROES_BASE_URL}"
 
-    h_page_initial = __req_url(f"{initial_req_url}/wiki/Category:Animals").soup()  # noqa
+    h_page_initial = __req_url(f"{initial_req_url}/wiki/Category:Animals").soup  # noqa
 
     h_article_el = h_page_initial.select(".category-page__members-for-char a.category-page__member-link")  # noqa
 
