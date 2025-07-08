@@ -1,6 +1,6 @@
 # Used to keep track of words from the "Appearance" sections or if no infobox exists
 # Whitelists are case-insensitive and can be negated (e.g. "!fox")
-whitelist:
+allowlist:
   - "fox"
   - "kitsune"
   - "wolf"

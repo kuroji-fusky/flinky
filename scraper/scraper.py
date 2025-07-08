@@ -61,18 +61,17 @@ cached_last_time = 0
 heroes_articles: list[dict[str, str]] = []
 
 
+class __req_url(RequestWrapper):
+    def __init__(self, url: str, referer=None):
+        super().__init__(url, referer, GLOBAL_TIMEOUT, GLOBAL_RETRIES)
+
+
 class ScraperConfig:
-    whitelist: list[str]
+    allowlist: list[str]
     ignore_filters: list[tuple[str, str]]
 
 
 CURRENT_TIME = round(time.time())
-
-
-# INHERITANCE SNADWICH
-class __req_url(RequestWrapper):
-    def __init__(self, url: str, referer=None):
-        super().__init__(url, referer, GLOBAL_TIMEOUT, GLOBAL_RETRIES)
 
 
 def pre_init():
@@ -100,10 +99,10 @@ def pre_init():
                              for a in _scraper_config["ignore-filters"]]
 
     scraper_config = ScraperConfig()
-    scraper_config.whitelist = _scraper_config["whitelist"]
+    scraper_config.allowlist = _scraper_config["allowlist"]
     scraper_config.ignore_filters = ignore_filters_parsed
 
-    print(f"{len(scraper_config.whitelist)} items found in the whitelist")
+    print(f"{len(scraper_config.allowlist)} items found in the allowlist")
 
 
 def main():
