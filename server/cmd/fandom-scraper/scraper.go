@@ -52,5 +52,7 @@ func main() {
 	}
 
 	// WIP rewriting all the scraper logic from Python so there's literally nothing here yet lmao
+	ReadConfig()
+
 	delayRequest(flagReqDelay)
 }

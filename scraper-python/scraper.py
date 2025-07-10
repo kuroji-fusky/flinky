@@ -108,6 +108,9 @@ def pre_init():
 def main():
     pre_init()
 
+    # End the script prematurely for debug purposes
+    sys.exit(0)
+
     _delay(GLOBAL_DELAY)
 
     # (4) Scrape logic
