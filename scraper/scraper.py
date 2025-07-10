@@ -1,13 +1,13 @@
 from crawl_utils import *
 from constants import *
 
-from argparse import ArgumentParser
+import argparse
 import json
 import time
 import os
 import sys
 
-parser = ArgumentParser()
+parser = argparse.ArgumentParser()
 
 parser.add_argument("-db", "--use-db", action="store_true",
                     help="Enables from all data")
@@ -108,14 +108,12 @@ def pre_init():
 def main():
     pre_init()
 
-    # End the script prematurely for debug purposes
-    sys.exit(0)
-
     _delay(GLOBAL_DELAY)
 
     # (4) Scrape logic
     initial_req_url = f"https://{HEROES_BASE_URL}"
 
+    # TODO: use `httpx` instead of `requests` lol
     h_page_initial = __req_url(f"{initial_req_url}/wiki/Category:Animals").soup  # noqa
 
     h_article_el = h_page_initial.select(".category-page__members-for-char a.category-page__member-link")  # noqa
@@ -143,9 +141,6 @@ def main():
     )[0]
 
     # TODO: add a checkpoint file for a worse case scenario when a program exits unexpectedly
-    # TODO: like a power outage, a blue screen, or an INSUFFERABLE RACCOON TRASHING YOUR WORKSTATION
-    # TODO: AND IN THE PROCESS, YOU ENDED UP SHAVING THE FUR AND PUBLICILY HUMILATE HIM
-    # TODO: ...sorry, that got outta hand :3 - Badger 🦨
 
     # Recursively find every entry until it hits `end_link_marker`, which will blank out `next_incoming_url`, effectively ending the loop
     while next_incoming_url is not None and isinstance(next_incoming_url, str) and next_incoming_url.strip():

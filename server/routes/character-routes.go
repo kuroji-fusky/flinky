@@ -2,7 +2,7 @@ package routes
 
 import (
 	"net/http"
-	"strconv"
+	// "strconv"
 
 	"github.com/labstack/echo/v4"
 )
@@ -17,15 +17,15 @@ func RegisterCharacterRoutes(e *echo.Echo) {
 
 	// Returns the recent additions
 	e.GET("/character", func(c echo.Context) error {
-		isBishRandom, bishRandomErr := strconv.ParseBool(c.QueryParam("random"))
-		if bishRandomErr != nil {
-			isBishRandom = false
-		}
+		// isBishRandom, bishRandomErr := strconv.ParseBool(c.QueryParam("random"))
+		// if bishRandomErr != nil {
+		// 	isBishRandom = false
+		// }
 
-		maxResults, maxResultsErr := strconv.Atoi(c.QueryParam("max_results"))
-		if maxResultsErr != nil {
-			maxResults = -1
-		}
+		// maxResults, maxResultsErr := strconv.Atoi(c.QueryParam("max_results"))
+		// if maxResultsErr != nil {
+		// 	maxResults = -1
+		// }
 
 		// TODO: more filter stuff for species, country, origin, holders, and stuff I'm too lazy too add rn
 
