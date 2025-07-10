@@ -1,0 +1,13 @@
+- <parents>
+  - <father> Warren
+  - <mother> Endora
+  - <root>
+    - Sabrina Conrad
+    - <siblings>
+      - <sister> Tabitha
+    - Richard "R.C." Conrad
+    - <child>
+      - Danielle Conrad
+    - <mutuals>
+      - Zig Zag
+      - Tina
