@@ -32,11 +32,13 @@ func defineStringFlags(ptr *string, flags []string, defaultVal string, help stri
 func main() {
 	// Flag stuff
 
-	var flagReqDelay int
-	var flagReqTimeout int
-	var flagReqRetries int
-	var flagVerboseMode bool
-	var flagUseDatabase string
+	var (
+		flagReqDelay    int
+		flagReqTimeout  int
+		flagReqRetries  int
+		flagVerboseMode bool
+		flagUseDatabase string
+	)
 
 	defineIntFlags(&flagReqDelay, []string{"delay", "d"}, 4, "Delay between requests in seconds, default is 4")
 	defineIntFlags(&flagReqTimeout, []string{"timeout", "T"}, 15, "Request timeout in seconds, default is 15")

@@ -1,13 +1,18 @@
 package main
 
-import "os"
+import (
+	"os"
+
+	"gopkg.in/yaml.v2"
+)
+
+type IgnoreFilterTuple struct {
+	ItemType, ItemVal string
+}
 
 type ScraperConfig struct {
-	Allowlist     []string `yaml:"allowlist"`
-	IgnoreFilters []struct {
-		Type  string `yaml:"type"`
-		Value string `yaml:"value"`
-	} `yaml:"ignore_filters"`
+	Allowlist     []string            `yaml:"allowlist"`
+	IgnoreFilters []IgnoreFilterTuple `yaml:"ignore_filters"`
 }
 
 func ReadConfig() {
