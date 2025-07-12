@@ -15,10 +15,10 @@ type ScraperConfig struct {
 	IgnoreFilters []IgnoreFilterTuple `yaml:"ignore_filters"`
 }
 
-func ReadConfig() {
-	cfgFile, err := os.Open("scraper-config.yml")
+func readYAMLFile(filePath string) (*ScraperConfig, error) {
+	cfgFile, err := os.Open(filePath)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	defer func() {
@@ -26,4 +26,29 @@ func ReadConfig() {
 			panic(err)
 		}
 	}()
+
+	scraperCfg := ScraperConfig{}
+	if err := yaml.NewDecoder(cfgFile).Decode(&scraperCfg); err != nil {
+		return nil, err
+	}
+
+	return &scraperCfg, nil
+}
+
+func ReadConfig() {
+	scraperCfg, err := readYAMLFile("scraper-config.yml")
+	if err != nil {
+		panic(err)
+	}
+
+	cfgAllowlist := scraperCfg.Allowlist
+	cfgIgnoreFilters := scraperCfg.IgnoreFilters
+
+	if len(cfgAllowlist) == 0 {
+		panic("Allowlist cannot be empty")
+	}
+
+	if len(cfgIgnoreFilters) == 0 {
+		panic("IgnoreFilters cannot be empty")
+	}
 }
