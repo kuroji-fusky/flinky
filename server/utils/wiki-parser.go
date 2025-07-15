@@ -7,7 +7,7 @@ import (
 type FandomPageParser struct {
 }
 
-func NewPageParser(wikiPage colly.Request) *FandomPageParser {
+func NewPageParser(wikiPage *colly.Request) *FandomPageParser {
 	return FandomPageParser{}
 }
 
