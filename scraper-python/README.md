@@ -5,7 +5,7 @@ A Python scraper written a crawls Heroes and Villains Wikis to crawl the `Animal
 > [!WARNING]
 > To prevent constant requests from `*.fandom.com`, a caching feature, and a `--timeout`, and `--delay` arguments are imposed to prevent `4XX` responses.
 
-The script tracks all the URLs in `fandom_cache.txt` to prevent any redundant requests and keeps a record of them; then tracks the progress with `fandom_cache.checkpoint.txt` for a worse case scenario if the script unexpectedly exits in a case of an abrupt shutdown, kernel panics
+The script tracks all the URLs in `fandom_cache.txt` to prevent any redundant requests and keeps a record of them; then tracks the progress with `fandom_cache.checkpoint.txt` for a worse case scenario if the script unexpectedly exits in a case of an abrupt shutdown, kernel panics, etc.
 
 ## Config
 

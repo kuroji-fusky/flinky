@@ -2,6 +2,10 @@
 
 A community-curated database for all things anthropomorphic!
 
+Proudly written in Go and Astro.
+
+## Premise
+
 ## Setup
 
 ### Prerequisites
