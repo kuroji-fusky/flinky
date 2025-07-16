@@ -5,10 +5,12 @@ import (
 )
 
 type FandomPageParser struct {
+	PageContents *colly.Collector
+	Url          string
 }
 
-func NewPageParser(wikiPage *colly.Request) *FandomPageParser {
-	return FandomPageParser{}
+func NewPageParser(wikiPage *colly.Collector) *FandomPageParser {
+	return &FandomPageParser{}
 }
 
 type InfoboxParser struct {
