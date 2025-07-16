@@ -1,4 +1,4 @@
-package utils
+package util
 
 import (
 	"github.com/gocolly/colly"
@@ -28,5 +28,5 @@ func (p *FandomPageParser) Paragraph() {
 
 type CategoryFilters []string
 
-func (p *FandomPageParser) Categories(filters CategoryFilters) {
+func (p *FandomPageParser) Categories() {
 }

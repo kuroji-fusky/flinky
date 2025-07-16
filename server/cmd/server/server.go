@@ -42,7 +42,6 @@ func main() {
 		allowedURLOrigins = "http://localhost:3000"
 	}
 
-	// Main server
 	e := echo.New()
 
 	e.Use(
@@ -63,12 +62,22 @@ func main() {
 		customHeader,
 	)
 
-	// Connecting stuff START
+	// Routes START
 
 	routes.RegisterBasicBitchRoutes(e)
 	routes.RegisterCharacterRoutes(e)
 
-	// Connecting stuff END
+	// GraphQL
+	// gqlHandler := handler.New(&handler.Config{
+	// TODO: No schemas atm, just a reminder to add GraphQL to this mf API, will separate this into its own package soon
+	// Pretty:   true,
+	// GraphiQL: true,
+	// })
+
+	// e.GET("/graphql", echo.WrapHandler(gqlHandler))
+	// e.POST("/graphql", echo.WrapHandler(gqlHandler))
+
+	// Routes END
 
 	go func() {
 		if err := e.Start(":4000"); err != nil && err != http.ErrServerClosed {
