@@ -10,16 +10,23 @@ services:
   flinky_server:
     container_name: Flinky Server
     depends_on:
-      - flinky_db
-      - flinky_redis
+      flinky_postgres:
+        condition: service_healthy
+      flinky_redis:
+        condition: service_healthy
     build:
       context: ./server
       dockerfile: Dockerfile
 
-  flinky_db:
+  flinky_postgres:
     container_name: Flinky Postgres
     image: postgres:latest
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "admin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: secret
@@ -29,15 +36,20 @@ services:
       - "9000:9000"
       - "9001:9001"
     volumes:
-      - flinky_postgres:/var/lib/postgresql/data
+      - flinky_postgres_db:/var/lib/postgresql/data
 
   flinky_redis:
     container_name: Flinky Redis Cache
     image: redis:latest
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - "6379:6379"
       - "8001:8001"
 
 volumes:
-  flinky_postgres:
+  flinky_postgres_db:
