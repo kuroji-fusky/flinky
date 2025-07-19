@@ -25,4 +25,14 @@ func RegisterBasicBitchRoutes(e *echo.Echo) {
 			"redis_db_response":    "it had constipation",
 		})
 	})
+
+	// Available for public instance of Flinky, may vary to someone who self-hosts Flinky
+	e.GET("/export-data", func(c echo.Context) error {
+		return c.String(http.StatusOK, "wip")
+	})
+
+	e.POST("/export-data/:fragment", func(c echo.Context) error {
+		return c.String(http.StatusOK, "this will return some blob data and stuff")
+	})
+
 }

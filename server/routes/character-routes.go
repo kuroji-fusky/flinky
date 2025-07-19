@@ -13,15 +13,14 @@ type PostCharacterStuff struct {
 }
 
 func RegisterCharacterRoutes(e *echo.Echo) {
-	characterSlugPath := "/character/:slug"
+	e.GET("/character/random", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, map[string]string{
+			"character": "random haha",
+		})
+	})
 
 	// Returns the recent additions
 	e.GET("/character", func(c echo.Context) error {
-		// isBishRandom, bishRandomErr := strconv.ParseBool(c.QueryParam("random"))
-		// if bishRandomErr != nil {
-		// 	isBishRandom = false
-		// }
-
 		// maxResults, maxResultsErr := strconv.Atoi(c.QueryParam("max_results"))
 		// if maxResultsErr != nil {
 		// 	maxResults = -1
@@ -39,7 +38,7 @@ func RegisterCharacterRoutes(e *echo.Echo) {
 	})
 
 	// Returns whatever slug you provide lmao
-	e.GET(characterSlugPath, func(c echo.Context) error {
+	e.GET("/character/:slug", func(c echo.Context) error {
 		sluggy := c.Param("slug")
 
 		return c.JSON(http.StatusOK, map[string]string{
@@ -47,7 +46,7 @@ func RegisterCharacterRoutes(e *echo.Echo) {
 		})
 	})
 
-	e.POST(characterSlugPath, func(c echo.Context) (err error) {
+	e.POST("/character/:slug", func(c echo.Context) (err error) {
 		// sluggy := c.Param("slug")
 		characterForm := new(PostCharacterStuff)
 
@@ -63,12 +62,12 @@ func RegisterCharacterRoutes(e *echo.Echo) {
 	})
 
 	// som edits
-	// e.PATCH(characterSlugPath, func(c echo.Context) (err error) {
+	// e.PATCH("/character/:slug", func(c echo.Context) (err error) {
 	// 	sluggy := c.Param("slug")
 	// })
 
 	// for yeeting them out
-	// e.DELETE(characterSlugPath, func(c echo.Context) (err error) {
+	// e.DELETE("/character/:slug", func(c echo.Context) (err error) {
 	// 	sluggy := c.Param("slug")
 	// })
 }
