@@ -1,0 +1,25 @@
+---
+import { ChevronRightIcon } from "../icons"
+
+interface Props {
+  items: Array<{
+    href: string
+    text: string
+    /** Desktop only: when a link is hovered, show an excerpt on a tiny window */
+    peekContents?: string
+  }>
+}
+
+const { items } = Astro.props
+---
+
+<nav id="breadcrumbs" class="inline-flex items-center">
+  {
+    items.map(({ href, text }, index) => (
+      <Fragment>
+        <a {href}>{text}</a>
+        <ChevronRightIcon />
+      </Fragment>
+    ))
+  }
+</nav>
