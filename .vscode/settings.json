@@ -1,6 +1,0 @@
-{
-  "python.analysis.diagnosticSeverityOverrides": {
-    "reportOptionalIterable": "none",
-    "reportOptionalMemberAccess": "none"
-  }
-}

@@ -1,37 +1,39 @@
 {
-  "name": "client-astro",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@astrojs/mdx": "4.3.0",
-    "@astrojs/rss": "^4.0.11",
-    "@astrojs/sitemap": "^3.4.1",
-    "@astrojs/svelte": "^7.1.0",
-    "@fontsource/azeret-mono": "^5.2.9",
-    "@fontsource/inter": "^5.2.6",
-    "@iconify-json/fa-brands": "^1.1.8",
-    "@iconify-json/lucide": "^1.1.200",
-    "@tailwindcss/vite": "^4.1.11",
-    "astro": "^5.10.1",
-    "astro-icon": "^1.1.0",
-    "astro-seo-schema": "^4.0.2",
-    "dotenv": "^17.2.0",
-    "lodash-es": "^4.17.21",
-    "nanostores": "^1.0.1",
-    "svelte": "^5.34.9",
-    "tailwindcss": "^4.1.11",
-    "typescript": "^5.8.3",
-    "unplugin-icons": "^0.19.0"
-  },
-  "devDependencies": {
-    "@tailwindcss/forms": "^0.5.10",
-    "@tailwindcss/typography": "^0.5.16",
-    "@types/lodash-es": "^4.17.12"
-  }
+	"private": true,
+	"name": "flinky-client",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@astrojs/mdx": "4.3.0",
+		"@astrojs/rss": "^4.0.11",
+		"@astrojs/sitemap": "^3.4.1",
+		"@astrojs/svelte": "^7.1.0",
+		"@fontsource/azeret-mono": "^5.2.9",
+		"@fontsource/inter": "^5.2.6",
+		"@iconify-json/fa-brands": "^1.1.8",
+		"@iconify-json/lucide": "^1.1.200",
+		"@tailwindcss/vite": "^4.1.11",
+		"astro": "^5.10.1",
+		"astro-icon": "^1.1.0",
+		"astro-seo-schema": "^4.0.2",
+		"dotenv": "^17.2.0",
+		"lodash-es": "^4.17.21",
+		"nanostores": "^1.0.1",
+		"svelte": "^5.34.9",
+		"tailwindcss": "^4.1.11",
+		"typescript": "^5.8.3",
+		"unplugin-icons": "^0.19.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@tailwindcss/forms": "^0.5.10",
+		"@tailwindcss/typography": "^0.5.16",
+		"@types/lodash-es": "^4.17.12"
+	}
 }
