@@ -1,0 +1,139 @@
+{
+  "franchise": "Sabrina Online",
+  "mediaType": "Comic/Manga",
+  "author": "Eric W. Schwartz",
+  "origin": "United States",
+  "year": 1996,
+  "people": [
+    {
+      "name": "Sabrina Conrad",
+      "slug": "sabrina-conrad",
+      "relations": {
+        "parents": [
+          {
+            "name": "Endora Skunk",
+            "role": "mother"
+          },
+          {
+            "name": "Warren Skunk",
+            "role": "father"
+          }
+        ],
+        "siblings": [
+          {
+            "name": "Tabitha Skunk",
+            "role": "sister"
+          }
+        ],
+        "spouse": [
+          {
+            "name": "Richard Conrad",
+            "role": "husband"
+          }
+        ],
+        "children": [
+          {
+            "name": "Danielle Conrad",
+            "role": "daughter"
+          }
+        ],
+        "mutuals": [
+          {
+            "name": "Zig Zag",
+            "role": "co-worker"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Richard Conrad",
+      "relations": {
+        "parents": [],
+        "spouse": [
+          {
+            "name": "Sabrina Conrad",
+            "role": "wife"
+          }
+        ],
+        "children": [
+          {
+            "name": "Danielle Conrad",
+            "role": "daughter"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Danielle Conrad",
+      "relations": {
+        "parents": [
+          {
+            "name": "Sabrina Conrad",
+            "role": "mother"
+          },
+          {
+            "name": "Richard Conrad",
+            "role": "father"
+          }
+        ],
+        "siblings": [
+          {
+            "name": "Tabitha Skunk",
+            "role": "aunt"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Tabitha Skunk",
+      "relations": {
+        "parents": [
+          {
+            "name": "Endora Skunk",
+            "role": "mother"
+          },
+          {
+            "name": "Warren Skunk",
+            "role": "father"
+          }
+        ],
+        "siblings": [
+          {
+            "name": "Sabrina Conrad",
+            "role": "sister"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Endora Skunk",
+      "relations": {
+        "children": [
+          {
+            "name": "Sabrina Conrad",
+            "role": "daughter"
+          },
+          {
+            "name": "Tabitha Skunk",
+            "role": "daughter"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Warren Skunk",
+      "relations": {
+        "children": [
+          {
+            "name": "Sabrina Conrad",
+            "role": "daughter"
+          },
+          {
+            "name": "Tabitha Skunk",
+            "role": "daughter"
+          }
+        ]
+      }
+    }
+  ]
+}
