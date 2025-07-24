@@ -5,10 +5,12 @@ import MenuIcon from "~icons/lucide/menu"
 import CloseIcon from "~icons/lucide/x"
 import ChevronDownIcon from "~icons/lucide/chevron-down"
 import ChevronRightIcon from "~icons/lucide/chevron-right"
+import ArrowRightIcon from "~icons/lucide/arrow-right"
 import EllipsisVertIcon from "~icons/lucide/ellipsis-vertical"
 import Settings2Icon from "~icons/lucide/settings-2"
 import SearchIcon from "~icons/lucide/search"
 import ShareIcon from "~icons/lucide/share-2"
+import RandomIcon from "~icons/lucide/dices"
 
 import GithubIcon from "~icons/fa-brands/github"
 
@@ -19,6 +21,8 @@ export {
   A11yIcon,
   MenuIcon,
   CloseIcon,
+  RandomIcon,
+  ArrowRightIcon,
   ChevronDownIcon,
   ChevronRightIcon,
   EllipsisVertIcon,

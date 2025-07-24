@@ -13,10 +13,14 @@ const footerLinks = [
 
 <div class="border-t border-t-neutral-400/50">
   <footer
-    class="max-w-7xl mx-auto px-6 py-10 space-y-6 prose-p:leading-relaxe prose-p:opacity-50"
+    class="max-w-7xl mx-auto px-6 py-6 space-y-6 prose-p:leading-relaxed prose-p:opacity-60"
   >
+    <p id="copyright-disclaimer">
+      All content hosted on this site is for informational purposes only. 
+    </p>
     <div class="flex gap-x-4 gap-y-5 flex-col lg:flex-row">
-      <span class="opacity-80 shrink-0 mr-3.5">© 2025 Kuroji Fusky</span>
+      <span class="opacity-80 shrink-0 mr-3.5">© 2025 Fusky Labs</span>
+      <div class="flex-1 hidden lg:block"></div>
       {
         footerLinks.map((e) => (
           <a
@@ -27,16 +31,6 @@ const footerLinks = [
           </a>
         ))
       }
-      <div class="flex-1 hidden lg:block"></div>
-        <a
-          href="https://github.com/kuroji-fusky/flinky"
-          target="_blank"
-          class="transition-opacity opacity-60 hover:opacity-100 flex items-center gap-x-1 hover:underline"
-        >
-          <GithubIcon />
-          <span>Source code</span>
-          <ExtLinkIcon width="1em" />
-        </a>
     </div>
   </footer>
 </div>

@@ -17,7 +17,7 @@ const { title, description } = Astro.props
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="system" data-theme-high-contrast="false" data-a11y-reduced-animations="system">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -36,13 +36,15 @@ const { title, description } = Astro.props
     <PreloadFont urls={[interFont, interFont700]} />
 
     {/* Sitemap */}
+    <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <ClientRouter />
   </head>
   <body
     class:list={[
-      "font-[Inter] antialiased overflow-x-hidden not-[.select-auto]:select-none dark:text-white dark:bg-black scheme-light-dark",
+      "[--navbar-size:theme(height.16)]",
+      "font-[Inter] antialiased overflow-x-hidden dark:text-white dark:bg-black scheme-light-dark",
       "text-sm",
     ]}
   >
@@ -53,7 +55,7 @@ const { title, description } = Astro.props
       >Skip to content?</a
     >
     <Navbar />
-    <main id="main-content" class="py-6 min-h-[calc(100dvh-10.20rem)]">
+    <main id="main-content" class="mt-[calc(var(--navbar-size)*1)] py-6 min-h-[calc(100dvh-10.20rem)]">
       <slot />
     </main>
     <Footer />

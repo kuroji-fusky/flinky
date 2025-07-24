@@ -1,49 +1,36 @@
 ---
 import { MenuIcon, ChevronDownIcon, Settings2Icon, SearchIcon } from "../icons";
+import BrowseMenu from "./BrowseMenu.astro";
 ---
 
 <script>
-  import { isBrowseMenuOpen } from "../../stores";
-
   const browseBtn = document.getElementById("browse") as HTMLButtonElement;
-  const htmlRoot = document.documentElement;
+  const exploreBtn = document.getElementById("explore") as HTMLButtonElement;
 
-  isBrowseMenuOpen.subscribe(() => {
-    browseBtn.ariaExpanded = isBrowseMenuOpen.value.toString();
-
-    if (isBrowseMenuOpen.value) {
-      htmlRoot.classList.add("overflow-y-hidden");
-    } else {
-      htmlRoot.classList.remove("overflow-y-hidden");
-    }
-  });
-
-  browseBtn.addEventListener("click", () => {
-    isBrowseMenuOpen.set(!isBrowseMenuOpen.value);
-  });
-
-  window.addEventListener("keydown", (e) => {
-    if (isBrowseMenuOpen.value && e.key === "Escape") {
-      isBrowseMenuOpen.set(false);
-    }
-  });
 </script>
 
-<nav data-global-navigation="" class="sticky top-0 bg-inherit z-[100]">
-  <div class="px-6 py-3.5 flex items-center gap-x-4">
+<nav class="fixed top-0 inset-x-0 z-[100] bg-white dark:bg-black">
+  <div class="h-[calc(var(--navbar-size)*1)] px-6 flex items-center gap-x-3.5 w-full mx-auto max-w-screen-xl">
     <button class="px-2 py-2 rounded-md cursor-pointer block lg:hidden">
       <MenuIcon />
     </button>
-    <a href="/" class="ml-0 lg:ml-2">Flinky</a>
+    <a href="/">Flinky</a>
     <span class="h-4 border-l opacity-40"></span>
     <div class="inline-flex gap-x-1">
       <button
         id="browse"
         aria-expanded="false"
-        class=" px-2.5 py-1.5 hover:bg-blue-600/60 rounded-md cursor-pointer hidden lg:inline-flex items-center gap-x-1"
+        class="group px-2 py-1.5 rounded-md cursor-pointer hidden lg:inline-flex items-center gap-x-1"
       >
         <span>Browse</span>
-        <ChevronDownIcon width="1em" height="1em" class="opacity-65" />
+        <ChevronDownIcon width="1em" height="1em" class="opacity-65 group-hover:translate-y-0.5 group-hover:opacity-100" />
+      </button>
+      <button
+        id="explore"
+        class="group px-2 py-1.5 rounded-md cursor-pointer hidden lg:inline-flex items-center gap-x-1"
+      >
+        <span>Explore</span>
+        <ChevronDownIcon width="1em" height="1em" class="opacity-65 group-hover:translate-y-0.5 group-hover:opacity-100" />
       </button>
       <button
         id="search"
@@ -84,5 +71,8 @@ import { MenuIcon, ChevronDownIcon, Settings2Icon, SearchIcon } from "../icons";
         <Settings2Icon />
       </button>
     </div>
+  </div>
+  <div id="flexible-container" class="relative">
+    <BrowseMenu/>
   </div>
 </nav>
