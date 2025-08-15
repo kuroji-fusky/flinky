@@ -11,6 +11,9 @@ import Settings2Icon from "~icons/lucide/settings-2"
 import SearchIcon from "~icons/lucide/search"
 import ShareIcon from "~icons/lucide/share-2"
 import RandomIcon from "~icons/lucide/dices"
+import XIcon from "~icons/lucide/x"
+import FilterIcon from "~icons/lucide/filter"
+import LayoutGridIcon from "~icons/lucide/layout-grid"
 
 import GithubIcon from "~icons/fa-brands/github"
 
@@ -29,4 +32,7 @@ export {
   Settings2Icon,
   SearchIcon,
   ShareIcon,
+  XIcon,
+  LayoutGridIcon,
+  FilterIcon
 }

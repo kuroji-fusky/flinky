@@ -1,25 +1,37 @@
 ---
-import { ClientRouter } from "astro:transitions"
-import "../../styles/global.css"
-import Footer from "../components/base/Footer.astro"
-import Navbar from "../components/base/Navbar.astro"
-import PreloadFont from "../components/base/PreloadFont.astro"
+import { ClientRouter } from "astro:transitions";
+import "../../styles/global.css";
+import Footer from "../components/base/Footer.astro";
+import Navbar from "../components/base/Navbar.astro";
+import PreloadFont from "../components/base/PreloadFont.astro";
 
-import interFont from "@fontsource/inter/files/inter-latin-400-normal.woff2?url"
-import interFont700 from "@fontsource/inter/files/inter-latin-700-normal.woff2?url"
+import interFont from "@fontsource/inter/files/inter-latin-400-normal.woff2?url";
+import interFont700 from "@fontsource/inter/files/inter-latin-700-normal.woff2?url";
 
 interface Props {
-  title: string
-  description?: string
+  title: string;
+  description?: string;
 }
 
-const { title, description } = Astro.props
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" data-theme="system" data-theme-high-contrast="false" data-a11y-reduced-animations="system">
+<html
+  lang="en"
+  data-theme="system"
+  data-theme-high-contrast="false"
+  data-a11y-reduced-animations="system"
+  transition:animate="none"
+>
   <head>
     <meta charset="UTF-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
@@ -55,7 +67,10 @@ const { title, description } = Astro.props
       >Skip to content?</a
     >
     <Navbar />
-    <main id="main-content" class="mt-[calc(var(--navbar-size)*1)] py-6 min-h-[calc(100dvh-10.20rem)]">
+    <main
+      id="main-content"
+      class="mt-[calc(var(--navbar-size)*1)] min-h-screen lg:min-h-[calc(100dvh-11.25rem)]"
+    >
       <slot />
     </main>
     <Footer />

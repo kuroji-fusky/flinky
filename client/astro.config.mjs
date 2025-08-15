@@ -4,6 +4,7 @@ import path from "node:path"
 import { defineConfig } from "astro/config"
 import tailwindcss from "@tailwindcss/vite"
 import sitemap from "@astrojs/sitemap"
+import svelte from "@astrojs/svelte"
 import mdx from "@astrojs/mdx"
 import { default as unpluginIcons } from "unplugin-icons/vite"
 
@@ -16,15 +17,17 @@ export default defineConfig({
     prefetchAll: true
   },
 
-  integrations: [sitemap(), mdx()],
+  integrations: [sitemap(), mdx(), svelte()],
 
   site: process.env.FRONTEND_SITE_URL,
+
+  redirects: {},
 
   vite: {
     plugins: [
       tailwindcss(),
       unpluginIcons({
-        compiler: "astro",
+        compiler: "svelte",
       }),
     ],
   },

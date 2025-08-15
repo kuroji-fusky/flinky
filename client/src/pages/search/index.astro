@@ -1,0 +1,19 @@
+---
+import { SearchInput, ListShelf } from "$lib/components/ui";
+import Layout from "$lib/layouts/Layout.astro";
+---
+
+<Layout title="Search results">
+  <div class="px-6 max-w-screen-xl mx-auto space-y-3">
+    <section>
+      <SearchInput client:load />
+      <div class="mt-2">
+        <ListShelf client:idle />
+      </div>
+      <hr class="my-4">
+    </section>
+    <section>
+      <div>items</div>
+    </section>
+  </div>
+</Layout>
