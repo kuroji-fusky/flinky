@@ -1,12 +1,13 @@
 package routes
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
 
-func RegisterBasicBitchRoutes(e *echo.Echo) {
+func RegisterBasicRoutes(e *echo.Echo) {
 	e.GET("/", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, map[string]string{
 			"documentation": "hi",
@@ -32,7 +33,12 @@ func RegisterBasicBitchRoutes(e *echo.Echo) {
 	})
 
 	e.POST("/export-data/:fragment", func(c echo.Context) error {
+		dataFragment := c.QueryParam("fragment")
+		authKey := c.Param("auth-key")
+
+		// Just to makeup with the undeclared variables
+		fmt.Println(dataFragment, authKey)
+
 		return c.String(http.StatusOK, "this will return some blob data and stuff")
 	})
-
 }

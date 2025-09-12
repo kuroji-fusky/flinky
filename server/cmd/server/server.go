@@ -64,7 +64,7 @@ func main() {
 
 	// Routes START
 
-	routes.RegisterBasicBitchRoutes(e)
+	routes.RegisterBasicRoutes(e)
 	routes.RegisterCharacterRoutes(e)
 
 	// GraphQL
