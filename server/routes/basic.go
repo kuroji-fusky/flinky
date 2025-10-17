@@ -28,17 +28,22 @@ func RegisterBasicRoutes(e *echo.Echo) {
 	})
 
 	// Available for public instance of Flinky, may vary to someone who self-hosts Flinky
-	e.GET("/export-data", func(c echo.Context) error {
+	e.GET("/export-data/details", func(c echo.Context) error {
+		page := c.QueryParam("page")
+
+		// Just to makeup with the undeclared variables
+		fmt.Println(page)
+
 		return c.String(http.StatusOK, "wip")
 	})
 
 	e.POST("/export-data/:fragment", func(c echo.Context) error {
 		dataFragment := c.QueryParam("fragment")
-		authKey := c.Param("auth-key")
+		authKey := c.Param("auth_key")
 
 		// Just to makeup with the undeclared variables
 		fmt.Println(dataFragment, authKey)
 
-		return c.String(http.StatusOK, "this will return some blob data and stuff")
+		return c.String(http.StatusOK, "this will return some blob data and stuff, most likely a .zip file")
 	})
 }

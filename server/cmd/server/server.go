@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -16,6 +17,21 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
+func getEnvWithFallback[T any](envKey string, fallback T) T {
+	key := os.Getenv(envKey)
+
+	if key == "" {
+		return fallback
+	}
+
+	switch any(fallback).(type) {
+	case string:
+		return any(key).(T)
+	default:
+		return fallback
+	}
+}
+
 func customHeader(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		c.Response().Header().Set("X-Made-With", "Hugs and kisses")
@@ -25,22 +41,19 @@ func customHeader(next echo.HandlerFunc) echo.HandlerFunc {
 
 func main() {
 	// Load env
-	cwd, cwdErr := os.Getwd()
-	if cwdErr != nil {
-		log.Fatalf("Error getting current working directory: %v", cwdErr)
-	}
+	cwd, _ := os.Getwd()
 
 	envErr := godotenv.Load(filepath.Join(cwd, "..", ".env"))
 	if envErr != nil {
 		log.Fatalf("Error getting .env: %v", envErr)
 	}
 
-	// customAPIKey := os.Getenv("FLINKY_SECRET_API_TOKEN")
-	// customAPIKey := os.Getenv("FLINKY_SERVER_PORT")
-	allowedURLOrigins := os.Getenv("FLINKY_SERVER_CORS_ALLOWED_DOMAINS")
-	if allowedURLOrigins == "" {
-		allowedURLOrigins = "http://localhost:3000"
-	}
+	customAPIToken := os.Getenv("FLINKY_SECRET_API_TOKEN")
+	serverPort := getEnvWithFallback("FLINKY_SERVER_PORT", 6969)
+	allowedURLOrigins := getEnvWithFallback("FLINKY_SERVER_CORS_ALLOWED_DOMAINS", "http://localhost:3000")
+
+	fmt.Println("Token:", customAPIToken)
+	fmt.Println("Server port:", serverPort)
 
 	e := echo.New()
 
@@ -56,9 +69,7 @@ func main() {
 			Timeout: 15 * time.Second,
 		}),
 		// Redirect trailing slash, cuz those are freaking cringe
-		middleware.RemoveTrailingSlashWithConfig(middleware.TrailingSlashConfig{
-			RedirectCode: http.StatusPermanentRedirect,
-		}),
+		middleware.RemoveTrailingSlash(),
 		customHeader,
 	)
 
@@ -67,20 +78,10 @@ func main() {
 	routes.RegisterBasicRoutes(e)
 	routes.RegisterCharacterRoutes(e)
 
-	// GraphQL
-	// gqlHandler := handler.New(&handler.Config{
-	// TODO: No schemas atm, just a reminder to add GraphQL to this mf API, will separate this into its own package soon
-	// Pretty:   true,
-	// GraphiQL: true,
-	// })
-
-	// e.GET("/graphql", echo.WrapHandler(gqlHandler))
-	// e.POST("/graphql", echo.WrapHandler(gqlHandler))
-
 	// Routes END
 
 	go func() {
-		if err := e.Start(":4000"); err != nil && err != http.ErrServerClosed {
+		if err := e.Start(fmt.Sprintf(":%d", serverPort)); err != nil && err != http.ErrServerClosed {
 			e.Logger.Fatalf("Server failed to start: %v", err)
 		}
 	}()
