@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"gopkg.in/yaml.v2"
+	"github.com/goccy/go-yaml"
 )
 
 type (
