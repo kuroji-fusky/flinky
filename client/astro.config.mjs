@@ -28,6 +28,7 @@ export default defineConfig({
       tailwindcss(),
       unpluginIcons({
         compiler: "svelte",
+        autoInstall: true,
       }),
     ],
   },

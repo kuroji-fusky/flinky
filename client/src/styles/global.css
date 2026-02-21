@@ -1,5 +1,7 @@
 @import "@fontsource/inter";
 @import "@fontsource/inter/700.css";
+@import "@fontsource/instrument-sans";
+@import "@fontsource/instrument-sans/700.css";
 
 @import "tailwindcss";
 
@@ -9,6 +11,20 @@
 @custom-variant dark (&:where(html.dark *), @media (prefers-color-scheme:dark));
 
 @theme {
+  --font-headings: "Instrument Sans", var(--default-font-family);
   --font-body: "Inter", var(--default-font-family);
   --font-mono: "Azeret Mono", var(--default-mono-font-family);
+}
+
+@layer base {
+  body {
+    @apply overflow-x-hidden antialiased font-body;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-headings;
+  }
 }

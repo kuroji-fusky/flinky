@@ -2,11 +2,12 @@
 import { ClientRouter } from "astro:transitions";
 import "../../styles/global.css";
 import Footer from "../components/base/Footer.astro";
-import Navbar from "../components/base/Navbar.astro";
+import Navbar from "../components/base/Navbar.svelte";
 import PreloadFont from "../components/base/PreloadFont.astro";
 
 import interFont from "@fontsource/inter/files/inter-latin-400-normal.woff2?url";
 import interFont700 from "@fontsource/inter/files/inter-latin-700-normal.woff2?url";
+import instrumentFont700 from "@fontsource/instrument-sans/files/instrument-sans-latin-700-normal.woff2?url";
 
 interface Props {
   title: string;
@@ -45,7 +46,7 @@ const { title, description } = Astro.props;
 
     <meta name="generator" content={Astro.generator} />
 
-    <PreloadFont urls={[interFont, interFont700]} />
+    <PreloadFont urls={[interFont, interFont700, instrumentFont700]} />
 
     {/* Sitemap */}
     <link rel="manifest" href="/manifest.webmanifest" />
@@ -55,18 +56,18 @@ const { title, description } = Astro.props;
   </head>
   <body
     class:list={[
-      "[--navbar-size:theme(height.16)]",
-      "font-[Inter] antialiased overflow-x-hidden dark:text-white dark:bg-black scheme-light-dark",
+      "[--navbar-size:theme(height.14)]",
+      "dark:text-white dark:bg-neutral-950 scheme-light-dark",
       "text-sm",
     ]}
   >
     <a
       data-astro-prefetch="false"
       href="#main-content"
-      class="bg-inherit border absolute top-0 px-6 py-4 z-[101] opacity-0 focus:opacity-100 pointer-events-none focus:pointer-events-auto"
+      class="bg-inherit border absolute top-0 px-6 py-4 z-101 opacity-0 focus:opacity-100 pointer-events-none focus:pointer-events-auto"
       >Skip to content?</a
     >
-    <Navbar />
+    <Navbar client:idle />
     <main
       id="main-content"
       class="mt-[calc(var(--navbar-size)*1)] min-h-screen lg:min-h-[calc(100dvh-11.25rem)]"

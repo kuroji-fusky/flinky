@@ -1,16 +1,17 @@
 ---
-import { kebabCase } from "lodash-es"
+import { kebabCase } from "lodash-es";
 
 interface Props {
-  heading?: string
+  heading?: string;
+  class?: string;
 }
 
-const { heading } = Astro.props
+const { heading, class: _class } = Astro.props;
 
-const headingKebabed = kebabCase(heading)
+const headingKebabed = kebabCase(heading);
 ---
 
-<section id={headingKebabed}>
+<section id={headingKebabed} class={_class}>
   <slot name="custom-heading">
     <h2 class="font-bold text-3xl mb-3">{heading}</h2>
   </slot>
